@@ -134,6 +134,28 @@ public class Main {
 }
 ````
 
+### 자주 사용되는 패턴
+
+````java
+package org.example;
+
+import org.example.utils.CommonValidator;
+
+
+public class Main {
+    public static void main(String[] args) {
+        CommonValidator validator = new CommonValidator();
+
+        String username = "gildong";
+        String email = "minho@example.com";
+
+        System.out.println("Username valid: " + validator.validateUsername(username)); // Output: true
+        System.out.println("Email valid: " + validator.validateEmail(email)); // Output: true
+    }
+}
+
+````
+
 ---
 ## API 문서
 

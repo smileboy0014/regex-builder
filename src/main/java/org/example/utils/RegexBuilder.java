@@ -18,11 +18,6 @@ public class RegexBuilder {
         return this;
     }
 
-    public RegexBuilder anyCharacterExcept(String chars) {
-        pattern.append("[^").append(Pattern.quote(chars)).append("]");
-        return this;
-    }
-
     public RegexBuilder digit() {
         pattern.append("\\d");
         return this;
@@ -56,6 +51,11 @@ public class RegexBuilder {
     // Character classes
     public RegexBuilder anyOf(String chars) {
         pattern.append("[").append(chars).append("]");
+        return this;
+    }
+
+    public RegexBuilder anyCharacterExcept(String chars) {
+        pattern.append("[^").append(Pattern.quote(chars)).append("]");
         return this;
     }
 
