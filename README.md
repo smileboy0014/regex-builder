@@ -181,6 +181,9 @@ public class Main {
 - wordBoundary(): 단어 경계를 확인합니다.
 - nonWordBoundary(): 단어가 아닌 경계를 확인합니다.
 - caseInsensitive(): 대소문자를 구분하지 않고 일치하는지를 확인합니다.
+- group(RegexBuilder subPattern): 지정된 하위 패턴에 대한 캡처 그룹을 추가합니다.
+- nonCapturingGroup(RegexBuilder subPattern): 지정된 하위 패턴에 대한 비캡처 그룹을 추가합니다.
+- namedGroup(String name, RegexBuilder subPattern): 지정된 하위 패턴에 대한 이름이 있는 비캡처 그룹을 추가합니다.
 - build(): 정규식 패턴을 문자열로 작성합니다.
 - compile(): 정규식 패턴을 패턴 객체로 컴파일합니다.
 - matches(String input): 입력 문자열을 컴파일된 패턴과 일치시킵니다.

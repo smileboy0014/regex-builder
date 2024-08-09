@@ -6,14 +6,20 @@ public class RegexBuilder {
 
     private StringBuilder pattern;
     private boolean caseInsensitive;
+    private Pattern compiledPattern;
 
     public RegexBuilder() {
         this.pattern = new StringBuilder();
         this.caseInsensitive = false;
     }
 
+    public RegexBuilder(Pattern precompiledPattern) {
+        this.compiledPattern = precompiledPattern;
+    }
+
     // Basic constructs
     public RegexBuilder literal(String text) {
+        if (compiledPattern != null) throw new IllegalStateException("Cannot modify a precompiled pattern.");
         pattern.append(Pattern.quote(text));
         return this;
     }
@@ -116,6 +122,22 @@ public class RegexBuilder {
         return this;
     }
 
+    // Grouping
+    public RegexBuilder group(RegexBuilder subPattern) {
+        pattern.append("(").append(subPattern.build()).append(")");
+        return this;
+    }
+
+    public RegexBuilder nonCapturingGroup(RegexBuilder subPattern) {
+        pattern.append("(?:").append(subPattern.build()).append(")");
+        return this;
+    }
+
+    public RegexBuilder namedGroup(String name, RegexBuilder subPattern) {
+        pattern.append("(?<").append(name).append(">").append(subPattern.build()).append(")");
+        return this;
+    }
+
     // Modifiers and options
     public RegexBuilder caseInsensitive() {
         this.caseInsensitive = true;
@@ -140,10 +162,12 @@ public class RegexBuilder {
     }
 
     public boolean matches(String input) {
+        if (compiledPattern != null) return compiledPattern.matcher(input).matches();
         return compile().matcher(input).matches();
     }
 
     public String extract() {
+        if (compiledPattern != null) return compiledPattern.pattern();
         return this.build();
     }
 
@@ -153,6 +177,7 @@ public class RegexBuilder {
     }
 
     public String replaceAll(String input, String replacement) {
+        if (compiledPattern != null) return compiledPattern.matcher(input).replaceAll(replacement);
         return compile().matcher(input).replaceAll(replacement);
     }
 }
