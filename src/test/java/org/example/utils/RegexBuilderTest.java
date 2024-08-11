@@ -9,7 +9,7 @@ class RegexBuilderTest {
 
     @Test
     public void testLiteral() {
-        RegexBuilder regex = new RegexBuilder().literal("hello");
+        RegexBuilder regex = new RegexBuilder().literal("hello").end();
         assertTrue(regex.matches("hello"));
         assertFalse(regex.matches("Hello"));
     }
