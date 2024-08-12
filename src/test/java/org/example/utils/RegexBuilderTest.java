@@ -42,6 +42,15 @@ class RegexBuilderTest {
 
 
     @Test
+    public void testGroup() {
+        RegexBuilder regex = new RegexBuilder().group(new RegexBuilder().literal("hello")).digit().oneOrMore();
+        assertEquals("(hello)\\d+", regex.extract());
+        assertTrue(regex.matches("hello123"));
+        assertFalse(regex.matches("helloabc"));
+    }
+
+
+    @Test
     public void testCaseInsensitive() {
         RegexBuilder regex = new RegexBuilder().literal("hello").caseInsensitive();
         assertTrue(regex.matches("hello"));
